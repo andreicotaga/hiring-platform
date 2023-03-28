@@ -19,9 +19,8 @@
 </head>
 <body>
 <div id="app">
-    <div class="w-full p-6 bg-teal-100 text-right font-bold">Your wallet has: {{$coins ?? '?' }} coins</div>
-    <candidates :candidates="{{ json_encode($candidates) }}">
-    </candidates>
+    <coins-counter></coins-counter>
+    <candidates :candidates="{{ json_encode($candidates) }}"></candidates>
 </div>
 
 <script src="{{ mix('/js/app.js') }}"></script>

@@ -17,3 +17,10 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
     ]);
 
+mix.browserSync({
+    host: 'localhost',
+    proxy: 'app',
+    port: 8080,
+    open: false,
+});
+
