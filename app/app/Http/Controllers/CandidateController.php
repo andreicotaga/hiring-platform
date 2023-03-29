@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CandidatePostRequest;
 use App\Service\CandidateService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CandidateController extends Controller
 {
@@ -21,15 +23,17 @@ class CandidateController extends Controller
         return view('candidates.index', compact('candidates'));
     }
 
-    public function contact()
+    public function contact(CandidatePostRequest $request): JsonResponse
     {
-        // @todo
-        // Your code goes here...
+        $candidate = $this->candidateService->contactCandidate($request->candidate_id);
+
+        return new JsonResponse(['data' => $candidate]);
     }
 
-    public function hire()
+    public function hire(CandidatePostRequest $request): JsonResponse
     {
-        // @todo
-        // Your code goes here...
+        $candidate = $this->candidateService->hireCandidate($request->candidate_id);
+
+        return new JsonResponse(['data' => $candidate]);
     }
 }

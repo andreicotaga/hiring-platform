@@ -22,6 +22,10 @@ window.Vue = require('vue').default;
 Vue.component('candidates', require('./components/Candidates.vue').default);
 Vue.component('coins-counter', require('./components/CoinsCounter.vue').default);
 
+import Toast from "vue-toastification";
+
+Vue.use(Toast)
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

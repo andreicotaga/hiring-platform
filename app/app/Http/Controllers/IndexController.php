@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Service\CompanyService;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class IndexController extends Controller
 {
-    const DEFAULT_COMPANY_ID = 1;
-
     public function __construct(
         private readonly CompanyService $companyService,
     ) {
     }
 
-    public function index(): Factory|View|Application
+    public function index(): JsonResponse
     {
-        $coins = $this->companyService->getCompanyById(self::DEFAULT_COMPANY_ID)->wallet()->coins;
+        $coins = $this->companyService->getCompanyById(Company::DEFAULT_COMPANY_ID)->wallet()->first()->coins;
 
-        return view('candidates.index', compact('coins'));
+        return new JsonResponse(compact('coins'));
     }
 }

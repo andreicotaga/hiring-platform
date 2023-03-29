@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Wallet extends Model
 {
     use HasFactory;
+
+    public const CONTACT_COINS_AMOUNT = 5;
+
+    protected $fillable = ['coins'];
 }

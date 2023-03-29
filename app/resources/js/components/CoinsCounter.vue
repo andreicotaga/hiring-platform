@@ -3,12 +3,31 @@
 </template>
 
 <script>
+import { EventBus } from '../event-bus';
+
 export default {
   name: "CoinsCounter",
   data() {
     return {
-      coins: 30
+      coins: 0
     }
   },
+  mounted() {
+    this.fetchCoins();
+  },
+  methods: {
+    async fetchCoins() {
+      const response = await axios
+          .get('http://localhost:8080/coins-count')
+
+      this.coins = response.data.coins
+    }
+  },
+  beforeMount() {
+    EventBus.$on('update-coins', this.fetchCoins);
+  },
+  beforeDestroy() {
+    EventBus.$off('update-coins', this.fetchCoins);
+  }
 }
 </script>
