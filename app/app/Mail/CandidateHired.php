@@ -7,18 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CandidateHired extends Mailable
+class CandidateHired extends Mailable implements EmailInterface
 {
     use Queueable, SerializesModels;
+
+    private array $mailData;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(array $mailData)
     {
-        //
+        $this->mailData = $mailData;
     }
 
     /**
@@ -26,8 +28,8 @@ class CandidateHired extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): static
     {
-        return $this->view('view.name');
+        return $this->markdown('emails.candidates-hired-email')->with('mailData', $this->mailData);
     }
 }
